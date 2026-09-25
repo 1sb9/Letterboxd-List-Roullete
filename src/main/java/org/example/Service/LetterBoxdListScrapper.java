@@ -18,20 +18,21 @@ public class LetterBoxdListScrapper {
     public List<Film> scrapeList(String baseurl) throws IOException {
         List<Film> filmList = new ArrayList<>();
 
-            Document doc = Jsoup.connect(baseurl).userAgent(USER_AGENT).get();
-            //Scrape First Page(the one that's guaranteed
-            scrapeFilmsToAdd(doc,filmList);
+        Document doc = Jsoup.connect(baseurl).userAgent(USER_AGENT).get();
+        //Scrape First Page(the one that's guaranteed
+        scrapeFilmsToAdd(doc, filmList);
 
-            final int totalPages= extractTotalPages(doc);
+        final int totalPages = extractTotalPages(doc);
 
-            for (int i = 2; i <= totalPages; i++) {
+        for (int i = 2; i <= totalPages; i++) {
 
-                String urlOfPage = baseurl + "page/" + i + "/";
+            String urlOfPage = baseurl + "page/" + i + "/";
 
-                doc = Jsoup.connect(urlOfPage)
-                        .userAgent(USER_AGENT).get();
+            doc = Jsoup.connect(urlOfPage)
+                    .userAgent(USER_AGENT).get();
 
-                scrapeFilmsToAdd(doc,filmList);}
+            scrapeFilmsToAdd(doc, filmList);
+        }
 
         return filmList;
     }
@@ -43,7 +44,6 @@ public class LetterBoxdListScrapper {
             Film f = new Film(filme.attr("data-item-name"), filme.attr("data-item-link"));
             filmList.add(f);
         }
-
 
     }
     private int extractTotalPages(Document doc) {

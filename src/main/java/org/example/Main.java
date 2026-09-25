@@ -10,6 +10,7 @@ import org.example.Model.Film;
 import org.example.Service.FilmRoullete;
 import org.example.Service.FilmRoulleteClass;
 import org.example.Service.LetterBoxdListScrapper;
+import org.example.Service.LetterBoxdUserListWatched;
 import org.example.Util.UrlListValidator;
 
 
@@ -18,11 +19,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc  = new Scanner(System.in);
         List<Film> films = new ArrayList<>();
-        String url = getUrlListInput(sc);
+        // String url = getUrlListInput(sc);
 
         LetterBoxdListScrapper scrapper = new LetterBoxdListScrapper();
+        LetterBoxdUserListWatched user = new LetterBoxdUserListWatched();
         try {
-            films = scrapper.scrapeList(url);
+            films = scrapper.scrapeList("https://letterboxd.com/official/list/letterboxds-top-500-films/");
         } catch (IOException e) {
             e.printStackTrace();
         }
