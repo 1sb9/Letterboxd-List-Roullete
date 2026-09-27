@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.example.Model.Film;
 import org.example.Service.FilmRoullete;
@@ -21,22 +22,26 @@ public class Main {
         List<Film> films = new ArrayList<>();
         // String url = getUrlListInput(sc);
 
-        LetterBoxdListScrapper scrapper = new LetterBoxdListScrapper();
-        LetterBoxdUserListWatched user = new LetterBoxdUserListWatched();
+
         try {
-            films = scrapper.scrapeList("https://letterboxd.com/official/list/letterboxds-top-500-films/");
+            //LetterBoxdUserListWatched user = new LetterBoxdUserListWatched();
+            //Set<Film> watchedMovies = user.scrapeUserFilmsWatched("pedrosilva0");
+            LetterBoxdListScrapper scrapper = new LetterBoxdListScrapper();
+
+            films = scrapper.scrapeList("https://letterboxd.com/crew/list/showdown-legacy-league/");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println("Total films in list: " + films.size());
 
-        FilmRoullete filmRoullete = new FilmRoulleteClass();
-        Film randomFilm = filmRoullete.getRandomFilm(films);
-        System.out.println("Film chosen: " + randomFilm.getTitle() );
 
-        System.out.println("Link of the Film:");
-        System.out.println("https://letterboxd.com" + randomFilm.getUrl());
+        FilmRoullete roullete =  new FilmRoulleteClass();
+        Film winner = roullete.getRandomFilm(films);
+
+        System.out.println("The chose movie is: ");
+        System.out.printf("Movie Title -> %s\n", winner.getTitle());
+        System.out.printf("Movie URL : -> %s \n", winner.getUrl());
     }
 
     private static String getUrlListInput(Scanner sc) {

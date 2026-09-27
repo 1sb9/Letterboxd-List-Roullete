@@ -16,4 +16,22 @@ public class Film {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+
+        if (other == null || getClass() != other.getClass())
+            return false;
+
+        Film toCompare = (Film) other;
+
+        return toCompare.getUrl().equals(this.getUrl());
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(url);
+    }
 }

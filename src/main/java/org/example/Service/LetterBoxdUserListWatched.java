@@ -11,9 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class LetterBoxdUserListWatched {
@@ -21,8 +21,8 @@ public class LetterBoxdUserListWatched {
     private  final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 
-    public  List<Film> scrapeUserFilmsWatched(String username) throws IOException {
-        List<Film> userFilms = new ArrayList<>();
+    public  Set<Film> scrapeUserFilmsWatched(String username) throws IOException {
+        Set<Film> userFilms = new HashSet<>();
         String linkUserProfile = "https://letterboxd.com/" + username + "/films/";
 
 
@@ -65,10 +65,9 @@ public class LetterBoxdUserListWatched {
 
     }
 
-    private void scrapeFilmsToAdd(Document doc, List<Film> userFilmsList) {
+    private void scrapeFilmsToAdd(Document doc, Set<Film> userFilmsList) {
         Elements links = doc.select("li.griditem div.react-component");
         for (Element filme : links) {
-            System.out.println(filme.attr("data-item-name") + filme.attr("data-item-link"));
             Film f = new Film(filme.attr("data-item-name"), filme.attr("data-item-link"));
             userFilmsList.add(f);
         }

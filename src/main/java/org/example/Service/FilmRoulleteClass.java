@@ -15,5 +15,4 @@ public class FilmRoulleteClass implements FilmRoullete {
         return films.get(rand.nextInt(films.size()));
 
     }
-
 }
